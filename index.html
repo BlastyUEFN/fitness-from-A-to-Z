@@ -59,15 +59,60 @@
 <body class="bg-gray-900 text-gray-100 font-sans">
 
 <!-- Hero Header -->
-<header class="relative h-80 md:h-96 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1554284126-aa88f22d8b74?auto=format&fit=crop&w=1500&q=80')">
-  <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-center px-6 fadeInUp">
-    <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-wide drop-shadow-lg mb-3">Gym Progress Guide</h1>
-    <p class="text-red-400 text-lg md:text-2xl">From Average to Exceptional</p>
-    <a href="#intro" class="mt-6 inline-block px-8 py-3 bg-gradient-to-r from-red-500 to-blue-500 text-white font-semibold rounded-lg glow hover:scale-105 transition-transform duration-300 text-lg">
+<header id="hero" 
+  class="relative h-screen bg-cover bg-center overflow-hidden transition-all duration-700 ease-out" 
+  style="background-image:url('https://images.unsplash.com/photo-1554284126-aa88f22d8b74?auto=format&fit=crop&w=1500&q=80'); 
+         transform-origin:center top;">
+  <div id="heroOverlay" class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-center px-6 fadeInUp transition-all duration-700 ease-out">
+    <h1 id="heroTitle" class="text-5xl md:text-7xl font-extrabold text-white tracking-wide drop-shadow-lg mb-3 transition-all duration-700 ease-out">
+      Gym Progress Guide
+    </h1>
+    <p id="heroSubtitle" class="text-red-400 text-lg md:text-2xl transition-all duration-700 ease-out">
+      From Average to Exceptional
+    </p>
+    <a href="#intro" 
+       class="mt-8 inline-block px-8 py-3 bg-gradient-to-r from-red-500 to-blue-500 text-white font-semibold rounded-lg hover:scale-105 transition-transform duration-300 text-lg">
       Begin Your Journey <i class="fas fa-arrow-down ml-2"></i>
     </a>
   </div>
 </header>
+
+<script>
+  const hero = document.getElementById("hero");
+  const overlay = document.getElementById("heroOverlay");
+  const title = document.getElementById("heroTitle");
+  const subtitle = document.getElementById("heroSubtitle");
+
+  let lastScrollY = 0;
+  let ticking = false;
+
+  function smoothScrollEffect(scrollY) {
+    const offset = scrollY * 0.3; // trage achtergrondbeweging (parallax)
+    const opacity = Math.max(1 - scrollY / 400, 0.3); // fade effect
+
+    // Parallax effect
+    hero.style.backgroundPosition = `center ${-offset}px`;
+
+    // Tekst en overlay fade
+    overlay.style.backgroundColor = `rgba(0, 0, 0, ${0.6 + scrollY / 1500})`;
+    title.style.opacity = opacity;
+    subtitle.style.opacity = opacity;
+  }
+
+  window.addEventListener("scroll", () => {
+    lastScrollY = window.scrollY;
+
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        smoothScrollEffect(lastScrollY);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+</script>
+
+
 
 <main class="max-w-7xl mx-auto px-6 py-16 space-y-32">
 
@@ -98,7 +143,15 @@
 
   <p class="text-gray-300 text-lg leading-relaxed">
     The goal is to provide an honest and practical guide: a combination of knowledge, experience, and strategy, so that from day one you can make informed choices that lead to sustainable and effective transformation — both physically and mentally.
+
   </p>
+<p class="text-gray-300 text-lg leading-relaxed">
+   Read more on <a href="index2.html" class="text-blue-400 font-semibold underline">chapter 2</a>.
+
+
+  </p>
+
+
 </section>
 
 
